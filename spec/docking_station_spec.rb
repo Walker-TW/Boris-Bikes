@@ -1,3 +1,4 @@
+require './lib/bike.rb'
 require './lib/docking_station'
 
 describe DockingStation do
@@ -11,15 +12,15 @@ describe DockingStation do
     end
 
     it "stocks a bike" do
-    expect(station.dock(Bike.new)).to be_a(Bike)
+    expect(station.dock(Bike.new)).to be_a(Array)
     end
 
     it {is_expected.to respond_to('dock').with(1).argument}
 
-    it {is_expected.to respond_to('bike')}
+    it {is_expected.to respond_to('bike_rack')}
 
     it "docking station does not have a bike" do
-      expect {station.bike_exist?}.to raise_error("No bike")
+      expect {station.release_bike}.to raise_error("No bike is present")
     end
 
     describe "release_bike" do
@@ -31,9 +32,16 @@ describe DockingStation do
 
   describe "#dock" do
 
-  it "Capacity is full" do
-    station.dock(Bike.new)
-    expect{station.dock(Bike.new)}.to raise_error("Dock is full")
+  describe '#dock' do
+  it 'docking 15 bikes store all of them' do
+    15.times { station.dock(Bike.new) }
+    expect(station.bike_rack.size).to eq(15)
+  end
+
+  it 'raise an error if capacity is at 20' do
+    20.times { station.dock(Bike.new) }
+    expect { station.dock(Bike.new) }.to raise_error('No docking station are free')
+  end
   end
 end
 end

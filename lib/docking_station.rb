@@ -1,18 +1,15 @@
-require_relative 'bike'
-
 class DockingStation
-  attr_reader :bike
-
-  def dock(bike)
-    raise "Dock is full" unless @bike == nil
-    @bike = bike
+  attr_reader :bike_rack
+  def initialize
+    @bike_rack = []
+    @capacity = 20
   end
-
   def release_bike
-    @bike
+    raise 'No bike is present' if @bike_rack.empty?
+    @bike_rack.pop
   end
-
-  def bike_exist?
-    fail "No bike" unless @bike
+  def dock(bike)
+    raise 'No docking station are free' unless @bike_rack.size < @capacity
+    @bike_rack << bike
   end
 end
