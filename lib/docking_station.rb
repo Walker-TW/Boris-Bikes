@@ -1,7 +1,8 @@
 class DockingStation
-  attr_reader :bike_rack
-
-  def initialize(capacity = 20)
+  attr_reader :bike_rack, :capacity
+  # if referenced in rspec as a method it needs to be a symbol
+  DEFAULT_CAPACITY = 20
+  def initialize(capacity=DEFAULT_CAPACITY)
     @bike_rack = []
     @capacity = capacity
   end

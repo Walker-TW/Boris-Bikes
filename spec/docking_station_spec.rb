@@ -30,20 +30,34 @@ describe DockingStation do
         end
       end
 
-  describe "#dock" do
+    it 'has default capacity' do 
+      expect(station.capacity).to eq DockingStation::DEFAULT_CAPACITY 
+    end
 
   describe '#dock' do
   it 'docking 15 bikes store all of them' do
     15.times { station.dock(Bike.new) }
     expect(station.bike_rack.size).to eq(15)
   end
+end
 
   it 'raise an error if capacity is at 20' do
     20.times { station.dock(Bike.new) }
     expect { station.dock(Bike.new) }.to raise_error('No docking station are free')
   end
+
+  describe "#initialize" do
+    it "accepts capacity of 50" do
+      docking_station = DockingStation.new(50)
+      expect(docking_station.capacity).to eq 50
+    end
+
+    it "has default capacity" do
+      docking_station = DockingStation.new()
+      expect(docking_station.capacity).to eq 20
+    end
   end
 end
-end
+
 
 
